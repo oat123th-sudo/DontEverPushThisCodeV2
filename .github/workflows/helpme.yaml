@@ -1,9 +1,9 @@
-name: DevSecOps Pipeline
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch: # เพิ่มบรรทัดนี้เข้าไปเพื่อให้ปุ่มปรากฏครับ
 
 # TODO#0: Declare workflow permissions.
 # Hint: scanners need to (a) read code, (b) upload SARIF to Security tab,
