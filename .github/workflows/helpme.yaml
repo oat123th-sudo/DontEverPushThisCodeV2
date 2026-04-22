@@ -10,12 +10,12 @@ on:
 #       (c) comment on PRs/issues, (d) request OIDC tokens.
 # Docs: https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
 permissions:
-  [cite_start]contents: read       # เพื่อให้ GitHub Actions อ่านโค้ดมา Scan ได้ [cite: 26]
-  security-events: write # สำคัญที่สุด! เพื่อให้เครื่องมือส่งผล SARIF เข้าไปที่ Security Tab ได้ [cite: 80]
-  id-token: none       # หากไม่ได้ใช้ OIDC (เช่น เชื่อม Cloud ด้วย Role) ให้เป็น none เพื่อความปลอดภัย
-  [cite_start]issues: write        # ให้เครื่องมือสามารถสร้าง Issue หรือ Comment แจ้งเตือนได้ [cite: 29]
-  [cite_start]pull-requests: write # เพื่อให้ Snyk หรือ SonarCloud แปะรายงานลงใน Pull Request ได้ [cite: 30]
-  actions: read        # ให้สิทธิ์อ่านข้อมูลการรันของ Workflow เท่านั้น
+  contents: read
+  security-events: write
+  id-token: none
+  issues: write
+  pull-requests: write
+  actions: read
 
 jobs:
     # GATE#0: Secret scanning (TruffleHog + Gitleaks)
