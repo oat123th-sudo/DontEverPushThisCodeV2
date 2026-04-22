@@ -1,3 +1,4 @@
+name: DevSecOps Pipeline
 on:
   push:
     branches: [ main ]
@@ -20,7 +21,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
               with:
-                [cite_start]fetch-depth: 0 # ดึงประวัติทั้งหมดเพื่อให้ตรวจสอบความลับที่เคย Commit ในอดีตได้ 
+                fetch-depth: 0
 
             - name: Run TruffleHog
               uses: trufflesecurity/trufflehog@main
@@ -29,7 +30,7 @@ jobs:
                 path: ./
                 base: ${{ github.event.repository.default_branch }}
                 head: HEAD
-                [cite_start]extra_args: --only-verified # รายงานเฉพาะความลับที่ตรวจสอบแล้วว่าเป็นของจริง [cite: 62]
+                extra_args: --only-verified
 
             - name: Run Gitleaks
               uses: gitleaks/gitleaks-action@v2
@@ -61,7 +62,7 @@ jobs:
         if: ${{ !cancelled() }} 
         strategy:
             matrix:
-                [cite_start]language: [ 'javascript-typescript' ] # โปรเจกต์ Next.js ใช้ภาษานี้ [cite: 18]
+                language: [ 'javascript-typescript' ]
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
@@ -70,7 +71,7 @@ jobs:
               uses: github/codeql-action/init@v3
               with:
                 languages: ${{ matrix.language }}
-                [cite_start]queries: security-extended,security-and-quality # ใช้ทั้งสองชุดเพื่อตรวจทั้งความปลอดภัยและคุณภาพ 
+                queries: security-extended,security-and-quality
 
             - name: Perform CodeQL Analysis
               uses: github/codeql-action/analyze@v3
@@ -95,12 +96,12 @@ jobs:
 
             - name: Depcheck
               uses: dependency-check/Dependency-Check_Action@main
-              continue-on-error: true
+              continue-on-error: true 
               id: Depcheck
               with:
                 project: 'DontEverPushThisCodeV2'
-                path: '.'
-                [cite_start]format: 'SARIF' # ฟอร์แมตที่ใช้ร่วมกับ GitHub Security tab ได้ 
+                path: '.' 
+                format: 'SARIF'
                 out: 'reports'
                 args: >
                     --failOnCVSS 7
